@@ -49,7 +49,9 @@ To execute the test suite, use the following command in your terminal:
 ### a) Command Breakdown
 
 `robot`: This command runs the Robot Framework test suite.
+
 `-d results`: This option specifies the directory (results) where the output files, including logs and reports, will be stored.
+
 `tests/e2e.robot`: This specifies the path to the test suite file that you want to execute.
 
 ### b) Output
@@ -57,7 +59,9 @@ To execute the test suite, use the following command in your terminal:
 After running the command, you will find the following files in the results directory:
 
 `output.xml`: A detailed log of the test execution.
+
 `report.html`: A summary report of the test results.
+
 `log.html`: A comprehensive log that includes additional details about the test execution.
 
 Ensure that you have all necessary dependencies installed and that the environment is properly set up before running the tests.
