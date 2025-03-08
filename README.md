@@ -38,7 +38,7 @@ This project follows a structured folder layout to enhance modularity and mainta
 
 `/tests`: Houses test suite files, such as e2e.robot, containing end-to-end test cases for clear organization and management of testing scenarios.
 
-`/results`: Stores logs and output from test executions, aiding in debugging and analysis. NOTE: It is a best practice not to version control the results folder, as it contains dynamically generated files that can be recreated at any time. To prevent the results folder from being included in version control, it has been added to the .gitignore file.
+`/results`: Stores logs and output from test executions, aiding in debugging and analysis. NOTE: It is a best practice not to version control the results folder, as it contains dynamically generated files that can be recreated at any time. To prevent the results folder from being included in version control, it has been added to the `.gitignore` file.
 
 ## Running the Tests
 
