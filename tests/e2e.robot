@@ -12,6 +12,7 @@ Resource    ../resources/payload_keywords.robot
 
 *** Test Cases ***
 Efetuar login (admin)
+    [Tags]    smoke
     ${response}    Login    email=${ADMIN_EMAIL}    password=${ADMIN_PASSWORD}
     Status Should Be    200
     Should Contain    ${response.json()["msg"]}    autenticação autorizada com sucesso
@@ -34,6 +35,7 @@ Efetuar login com email válido e senha incorreta
     Should Be Equal As Strings    ${response.json()["alert"]}    E-mail ou senha informados são inválidos.
 
 Cadastrar usuário
+    [Tags]    smoke
     ${body}    Get User Payload
     ${response}    Create User    ${body}
     # Status Should Be    201
@@ -57,6 +59,7 @@ Cadastrar usuário com CPF em branco
     Should Contain    ${response.text}    O campo CPF é obrigatório
 
 Efetuar login (user)
+    [Tags]    smoke
     ${response}    Login    email=${USER_EMAIL}    password=${USER_PASSWORD}
     Status Should Be    200
     Should Contain    ${response.json()["msg"]}    autenticação autorizada com sucesso
@@ -69,6 +72,7 @@ Contar usuários
     Should Contain Any    ${response.json()}    count
 
 Listar usuários
+    [Tags]    smoke
     ${response}    Retrieve Users
     ${length}=  Get length    ${response.json()}
     Status Should Be    200
@@ -76,6 +80,7 @@ Listar usuários
     Should Not Be Empty    ${response.json()}
 
 Pesquisar usuário por id
+    [Tags]    smoke
     ${response}    Retrieve User By Id    ${USER_ID}
     Status Should Be    200
     Should Be Equal As Strings    ${response.json()["_id"]}    ${USER_ID}
@@ -87,6 +92,7 @@ Listar Usuário por id não encontrado
     Should Be Equal As Strings    ${response.json()["alert"][0]}    Esse usuário não existe em nossa base de dados.
 
 Alterar usuário por id
+    [Tags]    smoke
     ${person}=    Get Fake Person
     ${body}=    Create Dictionary
     ...    fullName=${person}[name]
@@ -118,6 +124,7 @@ Alterar usuário por id com mail inválido
     Should Be Equal As Strings   ${response.json()["error"][0]}    O e-mail informado é inválido. Informe um e-mail no formato [nome@domínio.com].
 
 Alterar senha do usuário por id
+    [Tags]    smoke
     ${response}    Update User Password By Id   ${USER_ID}    ${NEW_PASSWORD}    ${NEW_PASSWORD}
     # Status Should Be    200
     Should Be Equal As Strings   ${response.json()["msg"]}    Senha atualizada com sucesso!
@@ -128,18 +135,21 @@ Alterar senha do usuário por id com senha inválida
     Should Contain   ${response.json()["error"]}    Invalid value
 
 Desativar status do usuário por id
+    [Tags]    smoke
     ${body}    Create Dictionary    status=false
     ${response}    Update User status By Id   ${USER_ID}    ${body}
     Status Should Be    200
     Should Be Equal As Strings   ${response.json()["msg"]}    Status do usuario atualizado com sucesso para status false.
 
 Ativar status do usuário por id
+    [Tags]    smoke
     ${body}    Create Dictionary    status=true
     ${response}    Update User Status By Id   ${USER_ID}    ${body}
     Status Should Be    200
     Should Be Equal As Strings   ${response.json()["msg"]}    Status do usuario atualizado com sucesso para status true.
 
 Excluir usuário por id
+    [Tags]    smoke
     ${response}    Delete User By Id    ${USER_ID}
     Status Should Be    200
     Should Be Equal As Strings   ${response.json()["msg"]}    Usuário deletado com sucesso!.
@@ -151,6 +161,7 @@ Excluir Cadastro de Usuário inexistente
     Should Be Equal As Strings   ${response.json()["alert"][0]}    Esse usuário não existe em nossa base de dados.
 
 Cadastrar empresa
+    [Tags]    smoke
     ${body}=    Get Company Payload
     ${response}    Create Company    ${body}
     Status Should Be    201
@@ -173,6 +184,7 @@ Cadastrar empresa com CNPJ em branco
     Should Be Equal As Strings   ${response.json()["error"][0]}    O campo \'CNPJ\' da empresa é obrigatório.
     
 Listar empresas
+    [Tags]    smoke
     ${response}    Retrieve Companies
     ${lenght}    Get Length    ${response.json()}
     Status Should Be    200
@@ -192,11 +204,13 @@ Listar empresa por ID não encontrado
     Should Be Equal As Strings    ${response.json()["alert"][0]}    Essa companhia não existe em nosso sistema.
 
 Alterar empresa por id
+    [Tags]    smoke
     ${response}    Update Company By Id    ${COMPANY_ID}
     # Status Should Be    201
     Should Be Equal As Strings   ${response.json()["msg"]}    Companhia atualizada com sucesso.
 
 Alterar endereço da empresa por id
+    [Tags]    smoke
     ${response}    Update Company Address By Id    ${COMPANY_ID}
     # Status Should Be    201
     Should Be Equal As Strings   ${response.json()["msg"]}    Companhia atualizada com sucesso.
@@ -227,6 +241,7 @@ Ativar status da empresa por id
     Should Be Equal As Strings   ${status}    True
 
 Excluir empresa por id
+    [Tags]    smoke
     ${response}    Delete Company By Id    ${COMPANY_ID}
     Status Should Be    200
     Should Be Equal As Strings   ${response.json()["msg"]}    Companhia deletado com sucesso.
@@ -235,3 +250,37 @@ Excluir empresa por id não encontrado
     ${response}    Delete Company By Id    ${INVALID_COMPANY_ID}
     Status Should Be    404
     Should Be Equal As Strings    ${response.json()["msg"]}    Essa companhia não existem em nossa base de dados.
+
+# Efetuar login (admin)
+# Efetuar login com e-mail inválido e senha válida
+# Efetuar login com email inválido e senha inválida
+# Efetuar login com email válido e senha incorreta
+# Cadastrar usuário
+# Cadastrar usuário com email inválido
+# Cadastrar usuário com CPF em branco
+# Efetuar login (user)
+# Contar usuários
+# Listar usuários
+# Pesquisar usuário por id
+# Listar Usuário por id não encontrado
+# Alterar usuário por id
+# Alterar usuário por id com fullName em branco
+# Alterar usuário por id com mail inválido
+# Alterar senha do usuário por id
+# Alterar senha do usuário por id com senha inválida
+# Desativar status do usuário por id
+# Ativar status do usuário por id
+# Excluir usuário por id
+# Excluir Cadastro de Usuário inexistente
+# Cadastrar empresa
+# Cadastrar empresa com nome da empresa acima do limite
+# Cadastrar empresa com CNPJ em branco    
+# Listar empresas
+# Pesquisar empresa por id
+# Listar empresa por ID não encontrado
+# Alterar empresa por id
+# Alterar endereço da empresa por id
+# Desativar status da empresa por id
+# Ativar status da empresa por id
+# Excluir empresa por id
+# Excluir empresa por id não encontrado
