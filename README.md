@@ -64,4 +64,12 @@ After running the command, you will find the following files in the results dire
 
 `log.html`: A comprehensive log that includes additional details about the test execution.
 
-Ensure that you have all necessary dependencies installed and that the environment is properly set up before running the tests.
+### Running Tests with Tags
+
+If you want to run tests that are marked with specific tags, you can use the `-i` option followed by the tag(s) you want to include. For example, to run tests tagged with `smoke`, use the following command:
+
+    robot -d results -i smoke tests/e2e.robot
+
+`-i smoke`: This option includes only the tests that are tagged with `smoke`. You can specify multiple tags by separating them with a comma (e.g., `-i smoke,regression`).
+
+By using tags, you can selectively run portions of your test suite, making it easier to focus on specific scenarios or test types.
