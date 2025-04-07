@@ -1,0 +1,26 @@
+name: inso-cli-pipeline
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  quality-eagles-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Print working directory
+        run: pwd
+      - name: Setup inso
+        uses: kong/setup-inso@v2
+        with:
+          inso-version: 10.3.1
+
+      - name: Print inso version
+        run: inso --version
+
+      - name: Run Tadeu-QualityEagles-Collection-with-bug-fixes
+        run: inso run collection Tadeu-QualityEagles-Collection -w ./Tadeu-QualityEagles-Collection-with-bug-fixes-inso-v5.yaml --reporter spec
