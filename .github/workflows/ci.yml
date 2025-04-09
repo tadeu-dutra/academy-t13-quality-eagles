@@ -41,7 +41,7 @@ jobs:
         run: |
           pip install robotframework
           pip install Faker
-          pip install install robotframework-requests
+          pip install robotframework-requests
           pip install pyyaml
 
       - name: Create Results Directory
