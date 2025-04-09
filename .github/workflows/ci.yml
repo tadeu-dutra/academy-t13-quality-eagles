@@ -71,7 +71,7 @@ jobs:
       id-token: write
     environment:
       name: github-pages
-      url: https://tadeu-dutra.github.io/academy-t13-quality-eagles-web/report.html
+      url: https://tadeu-dutra.github.io/academy-t13-quality-eagles-api/report.html
     steps:
       - name: Setup Pages
         uses: actions/configure-pages@v4
