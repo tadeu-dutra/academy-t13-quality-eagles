@@ -1,4 +1,4 @@
-name: inso-cli-pipeline
+name: API Testing
 
 on:
   push:
