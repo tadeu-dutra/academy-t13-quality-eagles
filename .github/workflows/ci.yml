@@ -7,11 +7,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  quality-eagles-job:
+  test_api_collection:
+    name: Run Insomnia API Collection
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Print working directory
         run: pwd
       - name: Setup inso
@@ -24,3 +25,66 @@ jobs:
 
       - name: Run Insomnia API Collection
         run: inso run collection Tadeu-QualityEagles-Collection -w ./Tadeu-QualityEagles-Collection-with-bug-fixes-inso-v4.yaml --reporter spec
+  test_api_robot:
+    name: Run Robot API Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: |
+          pip install robotframework
+          pip install Faker
+          pip install install robotframework-requests
+          pip install pyyaml
+
+      - name: Create Results Directory
+        run: |
+          mkdir -p results/
+        
+      - name: Run Tests
+        run: |
+          robot --outputdir results/ tests/
+
+      - name: Test Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: robot-framework-report
+          path: results
+
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-24.04
+    if: always()
+    needs:
+      - test
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: https://tadeu-dutra.github.io/academy-t13-quality-eagles-web/report.html
+    steps:
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: robot-framework-report
+          path: results/
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: results/
+      - name: Deploy to Github Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        
