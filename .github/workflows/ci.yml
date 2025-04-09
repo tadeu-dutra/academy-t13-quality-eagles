@@ -40,9 +40,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install robotframework
-          pip install Faker
           pip install robotframework-requests
-          pip install pyyaml
 
       - name: Create Results Directory
         run: |
