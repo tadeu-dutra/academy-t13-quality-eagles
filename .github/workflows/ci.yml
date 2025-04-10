@@ -41,6 +41,7 @@ jobs:
         run: |
           pip install robotframework
           pip install robotframework-requests
+          pip install Faker
 
       - name: Create Results Directory
         run: |
