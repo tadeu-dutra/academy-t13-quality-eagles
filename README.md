@@ -1,4 +1,4 @@
-# academy-t13-quality-eagles
+# quality-eagles-academy13-api-robot
 
 This repository tracks the work done by the Quality Eagles squad during the TQC (Academy) program offered by QA Coders. It explores API Testing using Robot Framework.
 

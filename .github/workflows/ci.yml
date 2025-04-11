@@ -7,25 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test_api_collection:
-    name: Run Insomnia API Collection
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-      - name: Print working directory
-        run: pwd
-      - name: Setup inso
-        uses: kong/setup-inso@v2
-        with:
-          inso-version: 10.3.1
-
-      - name: Print inso version
-        run: inso --version
-
-      - name: Run Insomnia API Collection
-        run: inso run collection Tadeu-QualityEagles-Collection -w ./Tadeu-QualityEagles-Collection-with-bug-fixes-inso-v4.yaml --reporter spec
-  test_api_robot:
+  test:
     name: Run Robot API Tests
     runs-on: ubuntu-latest
     steps:
@@ -63,7 +45,7 @@ jobs:
     runs-on: ubuntu-24.04
     if: always()
     needs:
-      - test_api_robot
+      - test
     permissions:
       contents: read
       pages: write
